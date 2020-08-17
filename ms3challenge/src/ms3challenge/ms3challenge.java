@@ -9,23 +9,34 @@ public class ms3challenge {
 	System.out.print(x);
 }
 	//opening the SQLite
-	public static void opensqlite(String z ) {
-	     Connection c = null;
-	      
-	     try {
-	         Class.forName("org.sqlite.JDBC");
-	         c = DriverManager.getConnection("jdbc:sqlite:test.db");
-	     } catch ( Exception e ) {
-	         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-	         System.exit(0);
-	     }
-	     System.out.println("Opened database successfully");
-	}
+	 public static void connect() {
+	        Connection conn = null;
+	        try {
+	            // db parameters
+	            String url = "jdbc:sqlite:C:/sqlite/db/chinook.db";
+	            // create a connection to the database
+	            conn = DriverManager.getConnection(url);
+	            
+	            System.out.println("Connection to SQLite has been established.");
+	            
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        } finally {
+	            try {
+	                if (conn != null) {
+	                    conn.close();
+	                }
+	            } catch (SQLException ex) {
+	                System.out.println(ex.getMessage());
+	            }
+	        }
+	    }
 	public static void main (String args[])  {
 		//System.out.println("check");
 	
 		//CONNECT TO SQL
-		opensqlite("sqlite-jdbc-3.30.1.jar");
+		connect();
+		//("sqlite-jdbc-3.30.1.jar");
 		//scanner setup
 		try{
 			File data = new File("src//ms3challenge//data.csv");
