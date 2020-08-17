@@ -61,14 +61,14 @@ public class ms3challenge {
 		}
 	}
 	
-	//used to write to baddata.cvs
-	public void writetocvs(String badrecord){
+	//used to write to baddata.csv
+	public void writetocsv(String badrecord){
    		try {
-   			FileWriter fw;
-			fw = new FileWriter("src//baddata.cvs");
+   			FileWriter fw = new FileWriter("src//baddata.csv",true);
 			fw.append(badrecord+"\n");
 			fw.flush();
 			fw.close();
+			print("written to baddata.csv");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -194,6 +194,8 @@ public class ms3challenge {
 			while(sc.hasNext()) {
 			
 				String next = sc.next();
+				String toinsert;
+				toinsert = next;
 				received++;
 				//print(next);
 				
@@ -216,7 +218,7 @@ public class ms3challenge {
 				else {
 					print("record going into bad data\n");
 					failed++;
-					
+					app.writetocsv(toinsert);
 				}
 				complete=true;
 				
