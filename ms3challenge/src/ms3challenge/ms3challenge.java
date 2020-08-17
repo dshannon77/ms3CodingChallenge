@@ -202,7 +202,7 @@ public class ms3challenge {
 				for(String z: row) {
 					if(z.isEmpty()) {
 						complete = false;
-						print("bad data");
+						
 					}
 				
 				}
@@ -214,7 +214,7 @@ public class ms3challenge {
 				      app.insert(row);
 				}
 				else {
-					print("record going into bad data");
+					print("record going into bad data\n");
 					failed++;
 					
 				}
@@ -223,7 +223,7 @@ public class ms3challenge {
 			}	
 		
 			sc.close();	
-			print("stats being written");
+			print("stats being written\n");
 			app.writetostats(received,successful,failed);
 			
 		}
