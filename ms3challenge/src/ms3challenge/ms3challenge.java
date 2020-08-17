@@ -15,6 +15,32 @@ public class ms3challenge {
 	System.out.print(x);
 	}
 	
+	//this method is here for testing purposes and not actually used
+	public void selectAll(){
+        String sql = "SELECT * FROM gooddata";
+        
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(rs.getString("A") +  "\t" + 
+                					rs.getString("B") +  "\t" + 
+                					rs.getString("C") +  "\t" + 
+                					rs.getString("D") +  "\t" + 
+                					rs.getString("E") +  "\t" + 
+                					rs.getString("F") +  "\t" + 
+                					rs.getString("G") +  "\t" + 
+                					rs.getString("H") +  "\t" + 
+                					rs.getString("H") +  "\t" + 
+                					rs.getString("J"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+	
 	//used to write to stats.log
 	public void writetostats(long rec, long suc, long fai){
    		try {
@@ -33,8 +59,8 @@ public class ms3challenge {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-   	
 	}
+	
 	//used to write to baddata.cvs
 	public void writetocvs(String badrecord){
    		try {
@@ -62,31 +88,6 @@ public class ms3challenge {
         return conn;
     }
 	
-	//this method is here for testing purposes 
-	public void selectAll(){
-        String sql = "SELECT * FROM gooddata";
-        
-        try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-            
-            // loop through the result set
-            while (rs.next()) {
-                System.out.println(rs.getString("A") +  "\t" + 
-                					rs.getString("B") +  "\t" + 
-                					rs.getString("C") +  "\t" + 
-                					rs.getString("D") +  "\t" + 
-                					rs.getString("E") +  "\t" + 
-                					rs.getString("F") +  "\t" + 
-                					rs.getString("G") +  "\t" + 
-                					rs.getString("H") +  "\t" + 
-                					rs.getString("H") +  "\t" + 
-                					rs.getString("J"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 	//used to insert a record in SQLite
 	 public void insert(String[] arr) {
 	        String sql = "INSERT INTO gooddata (A,B,C,D,E,F,G,H,I,J) VALUES(?,?,?,?,?,?,?,?,?.?)";
@@ -108,14 +109,16 @@ public class ms3challenge {
 	            System.out.println(e.getMessage());
 	        }
 	    }
+	 
 	//create new table in SQLite
 	public static void createNewTable(String fileName) {
-        // SQLite connection string
+        
+		// SQLite connection string
 		String url = "jdbc:sqlite:C:/sqlite/" + fileName;
         
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS gooddata (\n"
-                + "id integer PRIMARY KEY,\n"
+                + "ID integer PRIMARY KEY,\n"
                 + "A text NOT NULL,\n"
                 + "B text NOT NULL,\n"
                 + "C text NOT NULL,\n"
@@ -201,8 +204,7 @@ public class ms3challenge {
 						complete = false;
 						print("bad data");
 					}
-					//fields++;
-					//System.out.print(z+"\n");
+				
 				}
 				//if all fields have data, insert record into SQLite
 				if(complete ) {
@@ -217,12 +219,9 @@ public class ms3challenge {
 					
 				}
 				complete=true;
-				//fields =0;
+				
 			}	
-
-			
-			//app.selectAll();
-			
+		
 			sc.close();	
 			print("stats being written");
 			app.writetostats(received,successful,failed);
