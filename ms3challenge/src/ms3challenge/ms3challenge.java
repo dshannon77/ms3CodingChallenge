@@ -16,28 +16,30 @@ public class ms3challenge {
 	}
 	
 	//used to write to stats.log
-	public void writetocvs(String rec, String suc, String fai){
+	public void writetostats(long rec, long suc, long fai){
    		try {
    			FileWriter fw;
-			fw = new FileWriter("stats.log");
+			fw = new FileWriter("src//stats.log");
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 			LocalDateTime now = LocalDateTime.now();
-			fw.append(dtf.format(now)+"/n");
-			fw.append("# of records received"+rec+"\n");
-			fw.append("# of records successful"+rec+"\n");
-			fw.append("# of records failed"+rec+"\n");
+			fw.append(dtf.format(now)+"\n");
+			fw.append("# of records received: "+rec+"\n");
+			fw.append("# of records successful: "+suc+"\n");
+			fw.append("# of records failed: "+fai+"\n");
 			fw.flush();
-			fw.close();
+			fw.close();	
+			print("\nstats written");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+   	
 	}
 	//used to write to baddata.cvs
 	public void writetocvs(String badrecord){
    		try {
    			FileWriter fw;
-			fw = new FileWriter("baddata.cvs");
+			fw = new FileWriter("src//baddata.cvs");
 			fw.append(badrecord+"\n");
 			fw.flush();
 			fw.close();
@@ -222,6 +224,8 @@ public class ms3challenge {
 			//app.selectAll();
 			
 			sc.close();	
+			print("stats being written");
+			app.writetostats(received,successful,failed);
 			
 		}
 		catch (FileNotFoundException e) {
@@ -229,6 +233,6 @@ public class ms3challenge {
 				e.printStackTrace();
 		}
 		
-		
+		print("\nprogram done");
 	}
 }
